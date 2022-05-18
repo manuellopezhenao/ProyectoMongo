@@ -1,8 +1,9 @@
 // create book schema
-const mongoose = require('mongoose');
+const {mongoose} = require('../db/connection');
+
 const Schema = mongoose.Schema;
 
-const booksSchema = new Schema({
+const booksSchema = mongoose.model('book', new Schema({
     isbn: {
         type: String,
         required: true
@@ -39,12 +40,12 @@ const booksSchema = new Schema({
         type: Number,
         required: true
     },
-    autor : {
-        type: Schema.Types.ObjectId,
-        ref: 'autorSchema',
+    autor : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'autor',
         required: true
-    }
-});
+    }]
+}));
 
 module.exports = {booksSchema}
 

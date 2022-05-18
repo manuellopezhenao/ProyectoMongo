@@ -1,21 +1,34 @@
-// create servidor express
 const express = require('express');
 const app = express();
 
-const {mongoose} = require('./db/connection');
+// Settings
+app.set('port', process.env.PORT || 3000);
+app.use(express.static('public'));
 
-// iniciar el servidor
-app.listen(3000, () => {
-    console.log(mongoose.connection.user);
-    console.log('Servidor iniciado en el puerto 3000');
+// Middlewares
+
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
+
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
 });
 
+// Routes
+app.use(require('./routes/autor'));
+app.use(require('./routes/libro'));
 
-// rutas
-app.post('/guardarautor', (req, res) => {
-    let autor = req.body;
-    mongoose.autorSchema.create(autor, (err, autor) => {
-        if (err) throw err;
-        res.json(autor);
-    });
+
+
+
+
+
+// Starting the server
+app.listen(app.get('port'), () => {
+    console.log(`Server on port ${app.get('port')} `);
 });

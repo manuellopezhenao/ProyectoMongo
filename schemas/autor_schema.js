@@ -1,13 +1,11 @@
-// create book schema
-const mongoose = require('mongoose');
+
+const {mongoose} = require('../db/connection');
 const Schema = mongoose.Schema;
 
-const {} = require('../db/connection');
-
-
-const autorSchema = new Schema({
+const autorSchema = mongoose.model('autor', new Schema({
     nombre: {
         type: String,
+        unique: true,
         required: true
     },
     edad : {
@@ -18,7 +16,12 @@ const autorSchema = new Schema({
         type: String,
         required: true
     },
-});
+    foto_url : {
+        type: String,
+        required: true
+    }
+}));
+
 
 module.exports = {autorSchema}
 
