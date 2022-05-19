@@ -8,10 +8,6 @@ const autorSchema = mongoose.model('autor', new Schema({
         unique: true,
         required: true
     },
-    edad : {
-        type: Number,
-        required: true
-    },
     nacionalidad: {
         type: String,
         required: true
@@ -19,7 +15,11 @@ const autorSchema = mongoose.model('autor', new Schema({
     foto_url : {
         type: String,
         required: true
-    }
+    }, 
+    año_nacimiento : {
+        type: Number,
+        required: true
+    },
 }));
 
 

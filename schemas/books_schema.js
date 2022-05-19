@@ -8,10 +8,6 @@ const booksSchema = mongoose.model('book', new Schema({
         type: String,
         required: true
     },
-    fecha_publicacion : {
-        type: Date,
-        required: true
-    },
     nombre: {
         type: String,
         required: true
@@ -44,7 +40,11 @@ const booksSchema = mongoose.model('book', new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'autor',
         required: true
-    }]
+    }],
+    año_publicacion : {
+        type: Number,
+        required: true
+    },
 }));
 
 module.exports = {booksSchema}

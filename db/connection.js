@@ -7,7 +7,9 @@ mongoose.connection.openUri('mongodb://localhost:27017/books', (err, res) => {
     console.log('Base de datos: \x1b[32m%s\x1b[0m', 'online');
 });
 
+// mongoose debug
 mongoose.set('debug', true);
+
 
 
 module.exports = {mongoose};
