@@ -1,4 +1,6 @@
 const express = require('express');
+const fileUpload = require('express-fileupload')
+
 const app = express();
 
 // Settings
@@ -22,6 +24,9 @@ app.use((req, res, next) => {
 // Routes
 app.use(require('./routes/autor'));
 app.use(require('./routes/libro'));
+app.use(require('./routes/imagenes'));
+
+app.use(fileUpload())
 
 
 

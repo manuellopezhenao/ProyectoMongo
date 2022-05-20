@@ -8,7 +8,6 @@ mongoose.connection.openUri('mongodb://localhost:27017/books', (err, res) => {
 });
 
 // mongoose debug
-mongoose.set('debug', true);
 
 
 
