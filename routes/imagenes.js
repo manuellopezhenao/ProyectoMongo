@@ -6,6 +6,7 @@ var fs = require("fs");
 
 
 const { v4 } = require('uuid');
+const { booksSchema } = require("../schemas/books_schema");
 
 async function saveImage(filename, data) {
     var myBuffer =  Buffer(data.length);
@@ -32,8 +33,8 @@ router.post('/upload', (req, res) => {
     let filename = id; 
     let data = req.body.portada;
     saveImage(filename, data);
-    res.json({ id: "http://172.22.40.99:3000/getimage/" + id + ".jpg" });
-    console.log({ id: "http://172.22.40.99:3000/getimage/" + id + ".jpg" });
+    res.json({ id: "http://192.168.1.3:3000/getimage/" + id + ".jpg" });
+    console.log({ id: "http://192.168.1.3:3000/getimage/" + id + ".jpg" });
 });
 
 router.get('/getimage/:id', (req, res) => {
@@ -45,6 +46,23 @@ router.get('/getimage/:id', (req, res) => {
             console.log(err);
         }
     });
+});
+
+router.get('/actualizarips', (req, res) => {
+
+    let books = booksSchema.find({"portada": /172.22.40.99/}).then(books => {
+        for (let i = 0; i < books.length; i++) {
+        books[i].portada = books[i].portada.replace("172.22.40.99", "192.168.1.3");
+        books[i].save();
+    }
+
+   res.json(books);
+
+
+    }).catch(err => {
+        return res.json(err);
+    });
+    
 });
 
 

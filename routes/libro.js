@@ -54,6 +54,29 @@ router.get('/buscarlibro/:id', (req, res) => {
     });
 });
 
+router.put('/actualizarlibro/:id', (req, res) => {
+    let id = req.params.id;
+    let librodata = req.body;
+    booksSchema.findById(id, (err, libro) => {
+        if (err) throw err;
+        libro.titulo = librodata.titulo;
+        libro.isbn = librodata.isbn;
+        libro.nombre = librodata.nombre;
+        libro.genero = librodata.genero;
+        libro.sinopsis = librodata.sinopsis;
+        libro.portada = librodata.portada;
+        libro.precio = librodata.precio;
+        libro.stock = librodata.stock;
+        // libro.autor = librodata.autor;
+        libro.editorial = librodata.editorial;
+        libro.año_publicacion = librodata.año_publicacion;
+        libro.save((err, libro) => {
+            if (err) throw err;
+            res.json({estado: 'ok', mensaje: 'Libro actualizado'});
+        });
+    });
+});
+
 // buscar libros pór autor
 router.get('/buscarlibrosautor/:idautor', (req, res) => {
     let idautor = req.params.id;
