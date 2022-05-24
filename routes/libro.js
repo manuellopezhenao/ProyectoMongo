@@ -18,14 +18,11 @@ router.post('/guardarlibro', (req, res) => {
 
 router.delete('/eliminarlibro/:id', (req, res) => {
     let id = req.params.id;
-    booksSchema.findById(id, (err, autor) => {
+    booksSchema.findByIdAndDelete(id, (err, libro) => {
         if (err) throw err;
-        autor.libros.pull(id);
-        autor.save((err, autor) => {
-            if (err) throw err;
-            res.json({estado: 'ok', mensaje: 'Libro eliminado'});
-        });
-    });
+        res.json({ estado: 'ok', mensaje: 'Libro eliminado' });
+    }
+    );
 });
 
 router.get('/listarlibros/:id', (req, res) => {

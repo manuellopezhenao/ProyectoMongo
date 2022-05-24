@@ -33,9 +33,10 @@ router.post('/upload', (req, res) => {
     let filename = id; 
     let data = req.body.portada;
     saveImage(filename, data);
-    res.json({ id: "http://192.168.1.3:3000/getimage/" + id + ".jpg" });
-    console.log({ id: "http://192.168.1.3:3000/getimage/" + id + ".jpg" });
+    res.json({ id: "http://192.168.15.98:3000/getimage/" + id + ".jpg" });
+    console.log({ id: "http://192.168.15.98:3000/getimage/" + id + ".jpg" });
 });
+
 
 router.get('/getimage/:id', (req, res) => {
     var options = {
@@ -52,7 +53,7 @@ router.get('/actualizarips', (req, res) => {
 
     let books = booksSchema.find({"portada": /172.22.40.99/}).then(books => {
         for (let i = 0; i < books.length; i++) {
-        books[i].portada = books[i].portada.replace("172.22.40.99", "192.168.1.3");
+        books[i].portada = books[i].portada.replace("172.22.40.99", "192.168.15.98");
         books[i].save();
     }
 
