@@ -64,7 +64,7 @@ router.put('/actualizarlibro/:id', (req, res) => {
         libro.portada = librodata.portada;
         libro.precio = librodata.precio;
         libro.stock = librodata.stock;
-        // libro.autor = librodata.autor;
+        libro.autor = librodata.autor;
         libro.editorial = librodata.editorial;
         libro.año_publicacion = librodata.año_publicacion;
         libro.save((err, libro) => {
@@ -88,12 +88,30 @@ router.get('/buscarlibrosautor/:idautor', (req, res) => {
 // buscar libros por genero
 router.get('/buscarlibrosgenero/:genero', (req, res) => {
     let genero = req.params.genero;
+    console.log(genero);
     booksSchema.find({
         'libros.genero': genero
     }, (err, autores) => {
         if (err) throw err;
         res.json(autores);
     });
+});
+
+
+
+router.get('/buscarLibroNombre/:nombre', (req, res) => {
+    let nombre = req.params.nombre;
+    console.log(nombre);
+    // buscar coincidencias en nombre
+    booksSchema.find({
+        'nombre': {
+            $regex: nombre,
+            $options: 'i'
+        }
+    }, (err, autores) => {
+        if (err) throw err;
+        res.json(autores);
+    }).populate('autor');
 });
 
 module.exports = router;

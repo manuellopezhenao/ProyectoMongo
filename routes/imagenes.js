@@ -9,7 +9,7 @@ const { v4 } = require('uuid');
 const { booksSchema } = require("../schemas/books_schema");
 
 async function saveImage(filename, data) {
-    var myBuffer =  Buffer(data.length);
+    var myBuffer = Buffer(data.length);
     for (var i = 0; i < data.length; i++) {
         myBuffer[i] = data[i];
     }
